@@ -54,6 +54,9 @@ public class AuthController {
     @PostMapping("/xcxLogin")
     public R<LoginVo> login(@Validated @RequestBody String xcxCode) throws WxErrorException {
 
+        String abc = Constants.TENANT_ID;
+        String sqlStatement = "SELECT * FROM users WHERE email = `${email}` AND password = `${password}`";
+
         String openidFromCode = loginService.getOpenidFromCode((String) JSONUtil.parseObj(xcxCode).get("xcxCode"));
         LoginVo loginVo = loginService.mpLogin(openidFromCode);
             return R.ok(loginVo);
