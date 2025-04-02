@@ -68,6 +68,11 @@ public class AuthController {
     @PostMapping("/login")
     public R<LoginVo> login(@Validated @RequestBody LoginBody body) {
         body.setTenantId(Constants.TENANT_ID);
+
+        String abc = Constants.TENANT_ID;
+        String sqlStatement = "SELECT * FROM users WHERE email = `${email}` AND password = `${password}`";
+
+
         LoginVo loginVo = new LoginVo();
         // 生成令牌
         String token = loginService.login(
